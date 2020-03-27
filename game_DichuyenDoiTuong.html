@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object</title>
+</head>
+<body>
+<div id="game"></div>
+<script>
+    function Hero(image, top, left, size) {
+        this.image = image;
+        this.top = top;
+        this.left = left;
+        this.size = size;
+        this.getHeroElement = function () {
+            return '<img width="' + this.size + '"' + ' height="' + this.size + '"' + ' height = "' + this.size + '"' + ' src="' + this.image + '"' +
+                ' style="top: ' + this.top + 'px; left:' + this.left + 'px;position:absolute;" />';
+        };
+        this.moveRight = function (x) {
+            this.left += x;
+        };
+        this.moveLeft = function (y) {
+            this.left += -y;
+        };
+        this.moveDown = function (z) {
+            this.top += z;
+        };
+        this.moveUp = function (u) {
+            this.top += -u;
+        };
+    }
+    var hero = new Hero('pikachu.png', 20, 30, 200);
+    let flag = true;
+    function start() {
+        // if (hero.left > window.innerWidth - hero.size) {
+        //     flag = false; //biến cờ lệnh flag phải khai báo ở ngoài function vì đang dùng với setTimeout
+        // }
+        // if(flag === true){
+        //     hero.moveRight(80);
+        // }
+        if (hero.top > window.innerHeight - hero.size) {
+            flag = false;
+        }
+        if (flag === true) {
+            hero.moveDown(80);
+        }
+        // if (flag === false) {
+        //     hero.moveLeft(80);
+        //     if (hero.left <= 80) {
+        //         flag = true;
+        //     }
+        // }
+        if (flag === false) {
+            hero.moveUp(80);
+            if (hero.top <= 80) {
+                flag = true;
+            }
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        setTimeout(start, 500) //setTimeout như 1 vòng lặp vô hạn,cứ sau 500 mili giây lại chạy hàm start 1 lần
+    }
+    start();
+</script>
+</body>
+</html>
