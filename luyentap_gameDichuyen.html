@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Luyện tập game di chuyển</title>
+</head>
+<body>
+<div id="game"></div>
+<script>
+    function Hero(image, top, left, size, speed) {
+        this.image = image;
+        this.top = top;
+        this.left = left;
+        this.size = size;
+        this.speed = speed;
+        this.getHeroElement = function () {
+            return '<img width="' + this.size + '"' +
+                ' height="' + this.size + '"' +
+                ' src="' + this.image + '"' +
+                ' style="top: ' + this.top + 'px; left:' + this.left + 'px;position:absolute;" />';
+        };
+        this.moveRight = function () {
+            this.left += this.speed;
+        };
+        this.moveLeft = function () {
+            this.left -= this.speed;
+        };
+        this.moveDown = function () {
+            this.top += this.speed;
+        };
+        this.moveUp = function () {
+            this.top -= this.speed;
+        };
+    }
+    var hero = new Hero('pikachu.png', 1000, 30, 150, 80);
+    let flag = true;
+    function moveRight() {
+        if (hero.left < window.innerWidth - hero.size) {
+            hero.moveRight();
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        // setTimeout(moveRight, 500) //setTimeout như 1 vòng lặp vô hạn,cứ sau 500 mili giây lại chạy hàm start 1 lần
+    }
+    function moveLeft() {
+        if (hero.left > hero.size) {
+            hero.moveLeft();
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        // setTimeout(moveLeft, 500)
+    }
+    function moveDown() {
+        if (hero.top < window.innerHeight) {
+            hero.moveDown();
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        // setTimeout(moveDown, 500)
+    }
+    function moveUp() {
+        if (hero.top > hero.size) {
+            hero.moveUp();
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        setTimeout(moveUp, 500)
+    }
+    moveUp();
+</script>
+</body>
+</html>
